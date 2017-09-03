@@ -1,0 +1,22 @@
+version: "3.3"
+services:
+  tracker:
+    build: .
+    command: gunicorn authenticationservice.wsgi:application -b :8000 --worker-connections 10000 --timeout 310 -w 2 -k gevent
+    volumes:
+      - ./:/code
+    ports:
+      - 80:8000
+    networks: ['child-tracker']
+
+  db:
+    image: postgres:9.6
+    restart: on-failure:10
+    networks: ['child-tracker']
+    volumes:
+      - "postgres-db:/var/lib/postgresql/data"
+
+networks:
+  child-tracker:
+volumes:
+  postgres-db:

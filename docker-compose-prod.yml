@@ -1,5 +1,14 @@
 version: "3.2"
 services:
+  nginx:
+    image: nginx:stable
+    volumes:
+      - ./static:/usr/share/nginx/html/static/
+      - ./media:/usr/share/nginx/html/media/
+    ports:
+      - "7072:80"
+    depends_on:
+      - internal-microservices
   tracker:
     build: .
     command: gunicorn tracker.wsgi:application -b :8000 --worker-connections 10000 --timeout 310 -w 2 -k gevent

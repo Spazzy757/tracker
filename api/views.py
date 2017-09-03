@@ -1,5 +1,5 @@
-from rest_framework.authentication import BasicAuthentication
-from rest_framework.permissions import IsAuthenticated
+# from rest_framework.authentication import BasicAuthentication
+# from rest_framework.permissions import IsAuthenticated
 from api.serializers import PointSerializer
 from rest_framework import viewsets
 from api.models import Point
@@ -8,6 +8,6 @@ from api.models import Point
 
 class PointViewSet(viewsets.ModelViewSet):
     queryset = Point.objects.all()
-    authentication_class = (BasicAuthentication,)
-    permission_classes = (IsAuthenticated,)
+    # authentication_class = (BasicAuthentication,)
+    # permission_classes = (IsAuthenticated,)
     serializer_class = PointSerializer

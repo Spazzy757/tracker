@@ -1,8 +1,8 @@
-version: "3.3"
+version: "3.2"
 services:
   tracker:
     build: .
-    command: gunicorn authenticationservice.wsgi:application -b :8000 --worker-connections 10000 --timeout 310 -w 2 -k gevent
+    command: gunicorn tracker.wsgi:application -b :8000 --worker-connections 10000 --timeout 310 -w 2 -k gevent
     volumes:
       - ./:/code
     ports:

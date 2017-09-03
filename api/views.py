@@ -1,3 +1,5 @@
+from rest_framework.authentication import BasicAuthentication
+from rest_framework.permissions import IsAuthenticated
 from rest_framework import viewsets
 from api.models import Point
 # Create your views here.
@@ -5,3 +7,5 @@ from api.models import Point
 
 class PointViewSet(viewsets.ModelViewSet):
     queryset = Point.objects.all()
+    authentication_class = (BasicAuthentication,)
+    permission_classes = (IsAuthenticated,)

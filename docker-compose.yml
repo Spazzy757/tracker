@@ -1,0 +1,22 @@
+version: "3.3"
+services:
+  tracker:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./:/code
+    ports:
+      - 7000:8000
+    networks: ['child-tracker']
+
+  db:
+    image: postgres:9.6
+    restart: on-failure:10
+    networks: ['child-tracker']
+    volumes:
+      - "postgres-db:/var/lib/postgresql/data"
+
+networks:
+  child-tracker:
+volumes:
+  postgres-db:

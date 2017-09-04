@@ -45,12 +45,12 @@ class MovementViewSet(viewsets.GenericViewSet):
                     speed = "Inaccurate Readings Found"
                 data = {
                     'origin': {
-                        'longitude': point_one.longitude,
-                        'latitude': point_one.latitude,
+                        'longitude': float(point_one.longitude),
+                        'latitude': float(point_one.latitude),
                     },
                     'destination': {
-                        'longitude': point_two.longitude,
-                        'latitude': point_two.latitude,
+                        'longitude': float(point_two.longitude),
+                        'latitude': float(point_two.latitude),
                     },
                     'distance': distance,
                     'bearing': bearing,

@@ -53,7 +53,7 @@ class MovementViewSet(viewsets.GenericViewSet):
                     },
                     'distance': distance,
                     'bearing': bearing,
-                    'speed': math.ceil(speed * 100) / 100
+                    'speed': math.ceil(speed * 100) / 100 if type(speed) == int else speed
                 }
                 new_queryset.append(data)
                 counter = counter+1

@@ -47,11 +47,11 @@ def calculate_initial_compass_bearing(origin, destination):
     lat1 = math.radians(origin[0])
     lat2 = math.radians(destination[0])
 
-    diffLong = math.radians(destination[1] - origin[1])
+    diff_long = math.radians(destination[1] - origin[1])
 
-    x = math.sin(diffLong) * math.cos(lat2)
+    x = math.sin(diff_long) * math.cos(lat2)
     y = math.cos(lat1) * math.sin(lat2) - (math.sin(lat1)
-            * math.cos(lat2) * math.cos(diffLong))
+            * math.cos(lat2) * math.cos(diff_long))
 
     initial_bearing = math.atan2(x, y)
 
@@ -62,3 +62,18 @@ def calculate_initial_compass_bearing(origin, destination):
     compass_bearing = (initial_bearing + 360) % 360
 
     return compass_bearing
+
+
+def speed(point_distance, time):
+    """
+    Returns the speed an object travels between two points
+    :param point_distance: Distance in meters
+    :param time: Time in seconds
+    :return:
+    """
+    if point_distance != 0.0:
+        object_speed = (distance/time) * 3.6
+        object_speed = math.ceil(object_speed * 100) / 100
+    else:
+        object_speed = "Inaccurate Values Found(Distance: {}, Time: {})".format(point_distance, time)
+    return object_speed

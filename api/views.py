@@ -5,7 +5,6 @@ from api.serializers import PointSerializer
 from rest_framework import viewsets
 from api.models import Point
 from api import haversine
-import math
 # Create your views here.
 
 
@@ -30,19 +29,17 @@ class MovementViewSet(viewsets.GenericViewSet):
             while counter < return_count:
                 point_one = queryset[counter]
                 point_two = queryset[counter + 1]
+                # VALUES
+                first_point_timestamp = point_one.created
+                second_point_timestamp = point_two.created
+                time_diff = first_point_timestamp - second_point_timestamp
+                seconds = time_diff.seconds
                 origin = (float(point_one.latitude), float(point_one.longitude))
                 destination = (float(point_two.latitude), float(point_two.longitude))
+                # START OF CALCULATIONS
                 distance = haversine.distance(origin=origin, destination=destination)*1000
                 bearing = haversine.calculate_initial_compass_bearing(origin=origin, destination=destination)
-                first = point_one.created
-                second = point_two.created
-                time_diff = first - second
-                seconds = time_diff.seconds
-                if seconds != 0:
-                    speed = (distance/seconds)*3.6
-                    speed = math.ceil(speed * 100) / 100
-                else:
-                    speed = "Inaccurate Readings Found"
+                speed = haversine.speed(distance, seconds)
                 data = {
                     'origin': {
                         'longitude': float(point_one.longitude),
@@ -58,6 +55,7 @@ class MovementViewSet(viewsets.GenericViewSet):
                 }
                 new_queryset.append(data)
                 counter = counter+1
+        # TODO: Change this to a pagination class
         if queryset.count() > 40:
             new_queryset = new_queryset[:40]
         return Response(new_queryset, status=200)

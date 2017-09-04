@@ -40,6 +40,7 @@ class MovementViewSet(viewsets.GenericViewSet):
                 seconds = time_diff.seconds
                 if seconds != 0:
                     speed = (distance/seconds)*3.6
+                    speed = math.ceil(speed * 100) / 100
                 else:
                     speed = "Inaccurate Readings Found"
                 data = {
@@ -53,7 +54,7 @@ class MovementViewSet(viewsets.GenericViewSet):
                     },
                     'distance': distance,
                     'bearing': bearing,
-                    'speed': math.ceil(speed * 100) / 100 if type(speed) == int else speed
+                    'speed': speed
                 }
                 new_queryset.append(data)
                 counter = counter+1

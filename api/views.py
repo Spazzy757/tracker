@@ -58,4 +58,6 @@ class MovementViewSet(viewsets.GenericViewSet):
                 }
                 new_queryset.append(data)
                 counter = counter+1
+        if new_queryset.count() > 40:
+            new_queryset = new_queryset[:40]
         return Response(new_queryset, status=200)

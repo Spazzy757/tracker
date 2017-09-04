@@ -21,6 +21,9 @@ class Point(models.Model):
     def __str__(self):
         return "long: {}, Lat: {}".format(str(self.longitude), str(self.latitude))
 
+    class Meta:
+        ordering = ('-created',)
+
 
 class Movement(models.Model):
     movement_destination = models.ForeignKey(Point, related_name='destination')
@@ -35,7 +38,7 @@ class Movement(models.Model):
 def add_movement(created, instance, **kwargs):
     if created:
         custom_id = instance.device
-        queryset = Point.objects.filter(device=custom_id).order_by('created')
+        queryset = Point.objects.filter(device=custom_id)
         if queryset.count() > 1:
             origin = queryset[1]
             origin_coordinates = (origin.latitude, origin.longitude)

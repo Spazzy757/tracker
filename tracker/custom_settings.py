@@ -16,6 +16,5 @@ AUTHENTICATION_BACKENDS = [
 
 MEDIA_URL = '/media/'
 STATIC_ROOT = './static/'
-STATIC_URL = '/static/'
-if os.environ.get('ENVIRONMENT') == 'production':
-    STATIC_URL = 'http://127.0.0.1:7072:/static/'
+# STATIC_URL = '/static/'
+STATIC_URL = 'http://165.227.188.79:7072/static/'

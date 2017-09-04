@@ -1,8 +1,9 @@
-# from rest_framework.authentication import BasicAuthentication
-# from rest_framework.permissions import IsAuthenticated
 from api.serializers import PointSerializer, MovementSerializer
+from rest_framework.authentication import BasicAuthentication
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from api.models import Point, Movement
+from api.filters import MovementFilter
 from rest_framework import viewsets
 from api import haversine
 # Create your views here.
@@ -15,9 +16,12 @@ class PointViewSet(viewsets.ModelViewSet):
     serializer_class = PointSerializer
 
 
-class TrackerViewSet(viewsets.ModelViewSet):
+class TrackerViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Movement.objects.all()
+    authentication_class = (BasicAuthentication,)
+    permission_classes = (IsAuthenticated,)
     serializer_class = MovementSerializer
+    filter_class = MovementFilter
 
 
 class MovementViewSet(viewsets.GenericViewSet):

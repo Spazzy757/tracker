@@ -3,7 +3,7 @@ Haversine formula in python
 """
 import math
 
-EARTH_RADIUS = 6371
+EARTH_RADIUS = 6367
 
 
 def distance(origin, destination):
@@ -15,11 +15,15 @@ def distance(origin, destination):
     """
     lat1, lon1 = origin
     lat2, lon2 = destination
-    dlat = math.radians(lat2-lat1)
-    dlon = math.radians(lon2-lon1)
-    a = math.sin(dlat/2) * math.sin(dlat/2) + math.cos(math.radians(lat1)) * math.cos(math.radians(lat2)) \
-        * math.sin(dlon/2) * math.sin(dlon/2)
-    c = 2 * math.atan2(math.sqrt(a), math.sqrt(1-a))
+
+    lon1, lat1, lon2, lat2 = map(math.radians, [lon1, lat1, lon2, lat2])
+
+    dlon = lon2 - lon1
+    dlat = lat2 - lat1
+
+    a = math.sin(dlat/2)**2 + math.cos(lat1) * math.cos(lat2) * math.sin(dlon/2)**2
+    c = 2 * math.asin(math.sqrt(a))
+
     d = EARTH_RADIUS * c
 
     return d
@@ -72,8 +76,10 @@ def speed(point_distance, time):
     :return:
     """
     if point_distance != 0.0:
-        object_speed = (distance/time) * 3.6
+        point_distance = point_distance/1000
+        time = time / 3600
+        object_speed = point_distance/time
         object_speed = math.ceil(object_speed * 100) / 100
     else:
-        object_speed = "Inaccurate Values Found(Distance: {}, Time: {})".format(point_distance, time)
+        object_speed = 0.00
     return object_speed

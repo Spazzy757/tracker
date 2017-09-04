@@ -4,6 +4,7 @@ from api import views
 
 router = routers.DefaultRouter()
 router.register(r'^point', views.PointViewSet, base_name='point')
+router.register(r'^tracker', views.TrackerViewSet, base_name='tracker')
 router.register(r'^movement', views.MovementViewSet, base_name='movement')
 urlpatterns = [
     url(r'^', include(router.urls)),

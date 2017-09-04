@@ -45,11 +45,11 @@ class MovementViewSet(viewsets.GenericViewSet):
                 data = {
                     'origin': {
                         'longitude': point_one.longitude,
-                        'latitude': point_one.longitude,
+                        'latitude': point_one.latitude,
                     },
                     'destination': {
                         'longitude': point_two.longitude,
-                        'latitude': point_two.longitude,
+                        'latitude': point_two.latitude,
                     },
                     'distance': distance,
                     'bearing': bearing,

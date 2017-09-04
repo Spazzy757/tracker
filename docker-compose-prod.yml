@@ -8,12 +8,14 @@ services:
     ports:
       - "7072:80"
     depends_on:
-      - internal-microservices
+      - tracker
   tracker:
     build: .
     command: gunicorn tracker.wsgi:application -b :8000 --worker-connections 10000 --timeout 310 -w 2 -k gevent
     volumes:
       - ./:/code
+    environment:
+      - ENVIRONMENT=production
     ports:
       - 80:8000
     networks: ['child-tracker']

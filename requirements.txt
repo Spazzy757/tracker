@@ -1,6 +1,6 @@
 django-admin-bootstrapped==2.5.7
 djangorestframework-camel-case
-djangorestframework==3.6.3
+djangorestframework==3.9.1
 django==1.11.3
 gevent==1.1.1
 django-filter
